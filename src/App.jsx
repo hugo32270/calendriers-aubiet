@@ -6,7 +6,9 @@ import {
   TileLayer,
   CircleMarker,
   Popup,
-  GeoJSON
+  GeoJSON,
+  Marker,
+  useMap
 } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css'
@@ -31,11 +33,28 @@ function getColor(statut) {
       return 'gray'
   }
 }
+function RecentrerCarte({ position }) {
 
+  const map = useMap()
+
+  useEffect(() => {
+
+    if (position) {
+
+      map.setView(position, 18)
+
+    }
+
+  }, [position, map])
+
+  return null
+}
 export default function App() {
 
   const [adresses, setAdresses] = useState([])
   const [limiteCommune, setLimiteCommune] = useState(null)
+  const [positionGPS, setPositionGPS] =
+  useState(null)
 
   const [distributeur, setDistributeur] = useState(
     localStorage.getItem('distributeur') || ''
@@ -83,6 +102,33 @@ export default function App() {
       }
 
     }
+
+    function centrerSurPosition() {
+
+  navigator.geolocation.getCurrentPosition(
+
+    (position) => {
+
+      setPositionGPS([
+        position.coords.latitude,
+        position.coords.longitude
+      ])
+
+    },
+
+    (error) => {
+
+      console.error(error)
+
+      alert(
+        'Impossible de récupérer la position GPS'
+      )
+
+    }
+
+  )
+
+}
 
     const { error } = await supabase
       .from('adresses')
@@ -300,7 +346,13 @@ export default function App() {
         </label>
 
         <br /><br />
+<button
+  onClick={centrerSurPosition}
+>
+  📍 Ma position
+</button>
 
+<br /><br />
         <button
           onClick={() => {
 
@@ -329,7 +381,13 @@ export default function App() {
         <TileLayer
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+<RecentrerCarte
+  position={positionGPS}
+/>
 
+{positionGPS && (
+  <Marker position={positionGPS} />
+)}
         {limiteCommune && (
           <GeoJSON
             data={limiteCommune}
