@@ -238,19 +238,20 @@ export default function App() {
     >
 
       <div
-        style={{
-          position: 'absolute',
-          zIndex: 1000,
-          top: 10,
-          left: 10,
-          background: 'white',
-          padding: '10px',
-          borderRadius: '8px',
-          boxShadow:
-            '0 0 5px rgba(0,0,0,0.2)',
-          maxWidth: '320px'
-        }}
-      >
+  style={{
+    position: 'absolute',
+    zIndex: 1000,
+    top: 10,
+    left: 10,
+    background: 'white',
+    padding: '12px',
+    borderRadius: '12px',
+    boxShadow:
+      '0 4px 15px rgba(0,0,0,0.25)',
+    maxWidth: '240px',
+    fontSize: '13px'
+  }}
+>
 
         <h3>Calendriers Aubiet</h3>
 
