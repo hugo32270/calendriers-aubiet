@@ -248,8 +248,8 @@ export default function App() {
     borderRadius: '12px',
     boxShadow:
       '0 4px 15px rgba(0,0,0,0.25)',
-    maxWidth: '200px',
-    fontSize: '10px'
+    maxWidth: '160px',
+    fontSize: '7px'
   }}
 >
 
