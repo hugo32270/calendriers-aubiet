@@ -5,7 +5,8 @@ import {
   MapContainer,
   TileLayer,
   CircleMarker,
-  Popup
+  Popup,
+  GeoJSON
 } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css'
@@ -34,6 +35,7 @@ function getColor(statut) {
 export default function App() {
 
   const [adresses, setAdresses] = useState([])
+  const [limiteCommune, setLimiteCommune] = useState(null)
 
   const [distributeur, setDistributeur] = useState(
     localStorage.getItem('distributeur') || ''
@@ -98,6 +100,15 @@ export default function App() {
   useEffect(() => {
 
     chargerAdresses()
+
+    fetch('/aubiet.geojson')
+      .then(response => response.json())
+      .then(data => {
+        setLimiteCommune(data)
+      })
+      .catch(error => {
+        console.error(error)
+      })
 
     const channel = supabase
       .channel('adresses-realtime')
@@ -178,7 +189,9 @@ export default function App() {
         }}
       >
 
-        <h1>Distribution Calendriers Aubiet</h1>
+        <h1>
+          Distribution Calendriers Aubiet
+        </h1>
 
         <input
           id="nomDistributeur"
@@ -315,6 +328,17 @@ export default function App() {
         <TileLayer
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        {limiteCommune && (
+          <GeoJSON
+            data={limiteCommune}
+            style={{
+              color: '#000000',
+              weight: 4,
+              fillOpacity: 0
+            }}
+          />
+        )}
 
         {adressesAffichees.map(adresse => (
 
