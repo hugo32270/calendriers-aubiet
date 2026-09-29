@@ -103,7 +103,22 @@ export default function App() {
 
     }
 
-    function centrerSurPosition() {
+    
+
+    const { error } = await supabase
+      .from('adresses')
+      .update(donnees)
+      .eq('id', id)
+
+    if (error) {
+      console.error(error)
+      return
+    }
+
+    chargerAdresses()
+  }
+
+  function centrerSurPosition() {
 
   navigator.geolocation.getCurrentPosition(
 
@@ -129,19 +144,6 @@ export default function App() {
   )
 
 }
-
-    const { error } = await supabase
-      .from('adresses')
-      .update(donnees)
-      .eq('id', id)
-
-    if (error) {
-      console.error(error)
-      return
-    }
-
-    chargerAdresses()
-  }
 
   useEffect(() => {
 
