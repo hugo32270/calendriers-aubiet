@@ -7,12 +7,12 @@ import {
   CircleMarker,
   Popup,
   GeoJSON,
-  Marker,
   Circle,
   useMap
 } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css'
+
 
 function getColor(statut) {
 
@@ -489,7 +489,7 @@ export default function App() {
 
     <Circle
       center={positionGPS}
-      radius={40}
+      radius={12}
       pathOptions={{
         color: '#0066ff',
         fillColor: '#0066ff',
@@ -500,7 +500,6 @@ export default function App() {
   </>
 
 )}
-``
         {limiteCommune && (
           <GeoJSON
             data={limiteCommune}
@@ -513,22 +512,47 @@ export default function App() {
         )}
 
         {adressesAffichees.map(adresse => (
+ 
+<CircleMarker
+key={adresse.id}
+center={[
+Number(adresse.latitude),
+Number(adresse.longitude)
+]}
+radius={
+String(adresse.commentaire || '')
+.trim()
+.toLowerCase() === 'sponsor'
+? 14
+: 8
+}
+pathOptions={{
+color:
+String(adresse.commentaire || '')
+.trim()
+.toLowerCase() === 'sponsor'
+? '#FFD700'
+: getColor(adresse.statut),
+ 
+fillColor:
+String(adresse.commentaire || '')
+.trim()
+.toLowerCase() === 'sponsor'
+? '#FFD700'
+: getColor(adresse.statut),
+ 
+fillOpacity: 1,
+ 
+weight:
+String(adresse.commentaire || '')
+.trim()
+.toLowerCase() === 'sponsor'
+? 5
+: 2
+}}
+>
 
-          <CircleMarker
-            key={adresse.id}
-            center={[
-              Number(adresse.latitude),
-              Number(adresse.longitude)
-            ]}
-            radius={8}
-            pathOptions={{
-              color: getColor(
-                adresse.statut
-              )
-            }}
-          >
-
-            <Popup>
+    <Popup>
 
               <h3>{adresse.adresse}</h3>
 
@@ -681,7 +705,7 @@ export default function App() {
                 ⚪ Annuler
               </button>
 
-            </Popup>
+                       </Popup>
 
           </CircleMarker>
 
