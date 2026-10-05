@@ -85,25 +85,32 @@ export default function App() {
   }
 
   async function changerStatut(id, statut) {
+    const commentaire =
+  document.getElementById(
+    `commentaire-${id}`
+  )?.value || ''
 
     let donnees
 
     if (statut === 'Non traité') {
 
       donnees = {
-        statut: 'Non traité',
-        distributeur: null,
-        date_traitement: null
-      }
+  statut,
+  distributeur,
+  commentaire,
+  date_traitement:
+    new Date().toISOString()
+}
 
     } else {
 
       donnees = {
-        statut,
-        distributeur,
-        date_traitement:
-          new Date().toISOString()
-      }
+  statut,
+  distributeur,
+  commentaire,
+  date_traitement:
+    new Date().toISOString()
+}
 
     }
 
@@ -513,6 +520,30 @@ export default function App() {
                 {' '}
                 {adresse.distributeur || '-'}
               </p>
+              {adresse.commentaire && (
+
+  <p
+    style={{
+      background: '#f5f5f5',
+      padding: '8px',
+      borderRadius: '5px'
+    }}
+  >
+    📝 {adresse.commentaire}
+  </p>
+
+)}
+
+              <textarea
+  placeholder="Commentaire..."
+  defaultValue={adresse.commentaire || ''}
+  id={`commentaire-${adresse.id}`}
+  style={{
+    width: '100%',
+    minHeight: '60px',
+    marginBottom: '10px'
+  }}
+/>
 
               <button
                 onClick={() =>
