@@ -546,7 +546,30 @@ export default function App() {
     marginBottom: '10px'
   }}
 />
+ <button
+  style={{
+    width: '100%',
+    padding: '12px',
+    marginBottom: '8px',
+    borderRadius: '8px'
+  }}
+  onClick={async () => {
 
+    await supabase
+      .from('adresses')
+      .update({
+        commentaire: null
+      })
+      .eq('id', adresse.id)
+
+    chargerAdresses()
+
+  }}
+>
+  🗑️ Effacer commentaire
+</button>
+
+<br /><br />
               <button
                 onClick={() =>
                   changerStatut(
@@ -607,30 +630,7 @@ export default function App() {
                   )
                 }
               >
-              <button
-  style={{
-    width: '100%',
-    padding: '12px',
-    marginBottom: '8px',
-    borderRadius: '8px'
-  }}
-  onClick={async () => {
-
-    await supabase
-      .from('adresses')
-      .update({
-        commentaire: null
-      })
-      .eq('id', adresse.id)
-
-    chargerAdresses()
-
-  }}
->
-  🗑️ Effacer commentaire
-</button>
-
-<br /><br />
+             
                 ⚪ Annuler
               </button>
 
