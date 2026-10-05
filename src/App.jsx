@@ -95,11 +95,11 @@ export default function App() {
    if (statut === 'Non traité') {
 
   donnees = {
-    statut: 'Non traité',
-    distributeur: null,
-    commentaire: commentaire,
-    date_traitement: null
-  }
+  statut: 'Non traité',
+  distributeur: null,
+  commentaire: null,
+  date_traitement: null
+}
 
 }
 
@@ -607,6 +607,30 @@ export default function App() {
                   )
                 }
               >
+              <button
+  style={{
+    width: '100%',
+    padding: '12px',
+    marginBottom: '8px',
+    borderRadius: '8px'
+  }}
+  onClick={async () => {
+
+    await supabase
+      .from('adresses')
+      .update({
+        commentaire: null
+      })
+      .eq('id', adresse.id)
+
+    chargerAdresses()
+
+  }}
+>
+  🗑️ Effacer commentaire
+</button>
+
+<br /><br />
                 ⚪ Annuler
               </button>
 
