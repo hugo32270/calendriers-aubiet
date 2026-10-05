@@ -525,7 +525,7 @@ radius={
 String(adresse.commentaire || '')
 .trim()
 .toLowerCase() === 'sponsor'
-? 14
+? 10
 : 8
 }
 pathOptions={
@@ -536,7 +536,7 @@ pathOptions={
         color: '#FFD700',
         fillColor: '#FFD700',
         fillOpacity: 1,
-        weight: 5
+        weight: 3
       }
     : {
         color: getColor(adresse.statut)
