@@ -526,30 +526,20 @@ String(adresse.commentaire || '')
 ? 14
 : 8
 }
-pathOptions={{
-color:
-String(adresse.commentaire || '')
-.trim()
-.toLowerCase() === 'sponsor'
-? '#FFD700'
-: getColor(adresse.statut),
- 
-fillColor:
-String(adresse.commentaire || '')
-.trim()
-.toLowerCase() === 'sponsor'
-? '#FFD700'
-: getColor(adresse.statut),
- 
-fillOpacity: 1,
- 
-weight:
-String(adresse.commentaire || '')
-.trim()
-.toLowerCase() === 'sponsor'
-? 5
-: 2
-}}
+pathOptions={
+  String(adresse.commentaire || '')
+    .trim()
+    .toLowerCase() === 'sponsor'
+    ? {
+        color: '#FFD700',
+        fillColor: '#FFD700',
+        fillOpacity: 1,
+        weight: 5
+      }
+    : {
+        color: getColor(adresse.statut)
+      }
+}
 >
 
     <Popup>
