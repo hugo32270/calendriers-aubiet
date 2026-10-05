@@ -62,10 +62,13 @@ export default function App() {
   )
 
   const [filtreRestant, setFiltreRestant] =
-    useState(false)
+    useState(true)
 
   const [filtreRepasser, setFiltreRepasser] =
     useState(false)
+
+  const [menuOuvert, setMenuOuvert] =
+  useState(false)
 
   async function chargerAdresses() {
 
@@ -286,11 +289,38 @@ export default function App() {
   return (
 
     <div
+
+    
       style={{
         height: '100vh',
         width: '100vw'
       }}
     >
+
+    <button
+  onClick={() =>
+    setMenuOuvert(!menuOuvert)
+  }
+  style={{
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 3000,
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    border: 'none',
+    background: 'white',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    boxShadow:
+      '0 4px 15px rgba(0,0,0,0.25)'
+  }}
+>
+  ☰
+</button>
+
+{menuOuvert && (
 
       <div
   style={{
@@ -355,13 +385,7 @@ export default function App() {
         </label>
 
         <br /><br />
-<button
-  onClick={centrerSurPosition}
->
-  📍 Ma position
-</button>
 
-<br /><br />
         <button
           onClick={() => {
 
@@ -376,9 +400,33 @@ export default function App() {
           Déconnexion
         </button>
 
-      </div>
+     </div>
 
-      <MapContainer
+)}
+
+<button
+  onClick={centrerSurPosition}
+  style={{
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    zIndex: 3000,
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    border: 'none',
+    background: '#1976d2',
+    color: 'white',
+    fontSize: '28px',
+    boxShadow:
+      '0 4px 15px rgba(0,0,0,0.3)'
+  }}
+>
+  📍
+</button>
+
+<MapContainer
+
         center={[43.646, 0.784]}
         zoom={14}
         style={{
@@ -399,14 +447,14 @@ export default function App() {
   <>
   
     <Circle
-      center={positionGPS}
-      radius={15}
-      pathOptions={{
-        color: '#0066ff',
-        fillColor: '#0066ff',
-        fillOpacity: 1
-      }}
-    />
+  center={positionGPS}
+  radius={4}
+  pathOptions={{
+    color: '#0066ff',
+    fillColor: '#0066ff',
+    fillOpacity: 1
+  }}
+/>
 
     <Circle
       center={positionGPS}
