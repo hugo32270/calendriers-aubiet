@@ -131,6 +131,28 @@ export default function App() {
     chargerAdresses()
   }
 
+  async function enregistrerCommentaire(id) {
+
+  const commentaire =
+    document.getElementById(
+      `commentaire-${id}`
+    )?.value || ''
+
+  const { error } = await supabase
+    .from('adresses')
+    .update({
+      commentaire
+    })
+    .eq('id', id)
+
+  if (error) {
+    console.error(error)
+    return
+  }
+
+  chargerAdresses()
+}
+
   function centrerSurPosition() {
 
   navigator.geolocation.watchPosition(
@@ -546,6 +568,22 @@ export default function App() {
     marginBottom: '10px'
   }}
 />
+<button
+  style={{
+    width: '100%',
+    padding: '10px',
+    marginBottom: '10px',
+    borderRadius: '8px'
+  }}
+  onClick={() =>
+    enregistrerCommentaire(
+      adresse.id
+    )
+  }
+>
+  💾 Enregistrer commentaire
+</button>
+
  <button
   style={{
     width: '100%',
