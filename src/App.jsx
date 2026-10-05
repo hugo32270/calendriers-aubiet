@@ -151,6 +151,8 @@ export default function App() {
   }
 
   chargerAdresses()
+  await chargerAdresses()
+
 }
 
   function centrerSurPosition() {
