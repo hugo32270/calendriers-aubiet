@@ -303,7 +303,7 @@ export default function App() {
   }
   style={{
     position: 'absolute',
-    top: 10,
+    top: 70,
     left: 10,
     zIndex: 3000,
     width: '50px',
@@ -326,7 +326,7 @@ export default function App() {
   style={{
     position: 'absolute',
     zIndex: 1000,
-    top: 120,
+    top: 80,
     left: 10,
     background: 'white',
     padding: '12px',
@@ -428,7 +428,7 @@ export default function App() {
 <MapContainer
 
         center={[43.646, 0.784]}
-        zoom={13}
+        zoom={12}
         style={{
           height: '100%',
           width: '100%'
