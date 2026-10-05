@@ -92,27 +92,29 @@ export default function App() {
 
     let donnees
 
-    if (statut === 'Non traité') {
+   if (statut === 'Non traité') {
 
-      donnees = {
-  statut,
-  distributeur,
-  commentaire,
-  date_traitement:
-    new Date().toISOString()
+  donnees = {
+    statut: 'Non traité',
+    distributeur: null,
+    commentaire: commentaire,
+    date_traitement: null
+  }
+
 }
 
-    } else {
 
-      donnees = {
-  statut,
-  distributeur,
-  commentaire,
-  date_traitement:
-    new Date().toISOString()
+   else {
+
+  donnees = {
+    statut,
+    distributeur,
+    commentaire,
+    date_traitement:
+      new Date().toISOString()
+  }
+
 }
-
-    }
 
     
 
