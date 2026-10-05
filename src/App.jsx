@@ -544,6 +544,15 @@ export default function App() {
                 {' '}
                 {adresse.distributeur || '-'}
               </p>
+              {adresse.date_traitement && (
+
+  <p>
+    🕒 {new Date(
+      adresse.date_traitement
+    ).toLocaleString('fr-FR')}
+  </p>
+
+)}
               {adresse.commentaire && (
 
   <p
