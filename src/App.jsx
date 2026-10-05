@@ -303,7 +303,7 @@ export default function App() {
   }
   style={{
     position: 'absolute',
-    top: 70,
+    top: 110,
     left: 10,
     zIndex: 3000,
     width: '50px',
@@ -326,7 +326,7 @@ export default function App() {
   style={{
     position: 'absolute',
     zIndex: 1000,
-    top: 80,
+    top: 100,
     left: 10,
     background: 'white',
     padding: '12px',
