@@ -8,6 +8,7 @@ import {
   Popup,
   GeoJSON,
   Marker,
+  Circle,
   useMap
 } from 'react-leaflet'
 
@@ -120,7 +121,7 @@ export default function App() {
 
   function centrerSurPosition() {
 
-  navigator.geolocation.getCurrentPosition(
+  navigator.geolocation.watchPosition(
 
     (position) => {
 
@@ -139,6 +140,12 @@ export default function App() {
         'Impossible de récupérer la position GPS'
       )
 
+    },
+
+    {
+      enableHighAccuracy: true,
+      maximumAge: 5000,
+      timeout: 10000
     }
 
   )
@@ -388,8 +395,33 @@ export default function App() {
 />
 
 {positionGPS && (
-  <Marker position={positionGPS} />
+
+  <>
+  
+    <Circle
+      center={positionGPS}
+      radius={15}
+      pathOptions={{
+        color: '#0066ff',
+        fillColor: '#0066ff',
+        fillOpacity: 1
+      }}
+    />
+
+    <Circle
+      center={positionGPS}
+      radius={40}
+      pathOptions={{
+        color: '#0066ff',
+        fillColor: '#0066ff',
+        fillOpacity: 0.2
+      }}
+    />
+
+  </>
+
 )}
+``
         {limiteCommune && (
           <GeoJSON
             data={limiteCommune}
