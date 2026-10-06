@@ -247,9 +247,17 @@ export default function App() {
     a => a.statut === 'A repasser'
   ).length
 
-  const restant =
-    adresses.length -
-    (fait + absent + refus + repasser)
+  const sponsors = adresses.filter(
+  a =>
+    String(a.commentaire || '')
+      .trim()
+      .toLowerCase() === 'sponsor'
+).length
+
+const restant =
+  adresses.length -
+  sponsors -
+  (fait + absent + refus + repasser)
 
   const pourcentage = Math.round(
   ((fait + absent + refus + repasser)
@@ -261,14 +269,17 @@ export default function App() {
 
   if (filtreRestant) {
 
-    adressesAffichees =
-      adressesAffichees.filter(
-        a =>
-          !a.statut ||
-          a.statut === 'Non traité'
-      )
+  adressesAffichees =
+    adressesAffichees.filter(
+      a =>
+        (!a.statut ||
+          a.statut === 'Non traité') &&
+        String(a.commentaire || '')
+          .trim()
+          .toLowerCase() !== 'sponsor'
+    )
 
-  }
+}
 
   if (filtreRepasser) {
 
