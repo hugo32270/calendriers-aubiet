@@ -8,10 +8,19 @@ import {
   Popup,
   GeoJSON,
   Circle,
+  Marker,
   useMap
 } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+
+const sponsorIcon = L.divIcon({
+  html: '<div style="font-size:22px;">⭐</div>',
+  className: '',
+  iconSize: [22, 22],
+  iconAnchor: [11, 11]
+})
 
 
 function getColor(statut) {
@@ -574,14 +583,25 @@ export default function App() {
           />
         )}
 
-        {adressesAffichees.map(adresse => (
- 
-<CircleMarker
-key={adresse.id}
-center={[
-Number(adresse.latitude),
-Number(adresse.longitude)
-]}
+        {adressesAffichees.map(adresse => {
+
+  const isSponsor =
+    String(adresse.commentaire || '')
+      .trim()
+      .toLowerCase() === 'sponsor'
+
+  return isSponsor ? (
+
+    <Marker
+      key={adresse.id}
+      position={[
+        Number(adresse.latitude),
+        Number(adresse.longitude)
+      ]}
+      icon={sponsorIcon}
+    
+
+    
 radius={
 String(adresse.commentaire || '')
 .trim()
@@ -777,9 +797,33 @@ pathOptions={
 
                        </Popup>
 
-          </CircleMarker>
+    </Marker>
 
-        ))}
+  ) : (
+
+    <CircleMarker
+      key={adresse.id}
+      center={[
+        Number(adresse.latitude),
+        Number(adresse.longitude)
+      ]}
+      radius={8}
+      pathOptions={{
+        color: getColor(adresse.statut)
+      }}
+    >
+
+      <Popup>
+
+        {/* TOUT LE CONTENU DE LA POPUP */}
+
+      </Popup>
+
+    </CircleMarker>
+
+  )
+
+})}
 
       </MapContainer>
 
