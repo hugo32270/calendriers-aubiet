@@ -56,6 +56,71 @@ function RecentrerCarte({ position }) {
   return null
 }
 
+function PositionAnimee({ position }) {
+  const [rayon, setRayon] = useState(8)
+  const [opacite, setOpacite] = useState(0.35)
+
+  useEffect(() => {
+    if (!position) return
+
+    let animationId
+    let debutAnimation
+
+    function animer(temps) {
+      if (!debutAnimation) {
+        debutAnimation = temps
+      }
+
+      const duree = 1800
+      const progression =
+        ((temps - debutAnimation) % duree) / duree
+
+      setRayon(8 + progression * 14)
+      setOpacite(0.35 * (1 - progression))
+
+      animationId = requestAnimationFrame(animer)
+    }
+
+    animationId = requestAnimationFrame(animer)
+
+    return () => {
+      cancelAnimationFrame(animationId)
+    }
+  }, [position])
+
+  if (!position) {
+    return null
+  }
+
+  return (
+    <>
+      <CircleMarker
+        center={position}
+        radius={4}
+        pathOptions={{
+          color: '#ffffff',
+          weight: 2,
+          fillColor: '#0066ff',
+          fillOpacity: 1
+        }}
+      />
+
+      <CircleMarker
+        center={position}
+        radius={rayon}
+        pathOptions={{
+          color: '#0066ff',
+          weight: 1,
+          opacity: opacite,
+          fillColor: '#0066ff',
+          fillOpacity: opacite * 0.5
+        }}
+        interactive={false}
+      />
+    </>
+  )
+}
+
 export default function App() {
   const [adresses, setAdresses] = useState([])
   const [limiteCommune, setLimiteCommune] = useState(null)
@@ -603,32 +668,7 @@ export default function App() {
 
         <RecentrerCarte position={positionGPS} />
 
-        {positionGPS && (
-  <>
-    <CircleMarker
-      center={positionGPS}
-      radius={5}
-      pathOptions={{
-        color: '#ffffff',
-        weight: 2,
-        fillColor: '#0066ff',
-        fillOpacity: 1
-      }}
-    />
-
-    <CircleMarker
-      center={positionGPS}
-      radius={12}
-      pathOptions={{
-        className: 'gps-halo',
-        color: '#0066ff',
-        weight: 2,
-        fillColor: '#0066ff',
-        fillOpacity: 0.15
-      }}
-    />
-  </>
-)}
+        <PositionAnimee position={positionGPS} />
 
         {limiteCommune && (
           <GeoJSON
