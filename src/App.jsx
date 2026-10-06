@@ -242,6 +242,12 @@ export default function App() {
     adresses.length -
     (fait + absent + refus + repasser)
 
+  const pourcentage = Math.round(
+  ((fait + absent + refus + repasser)
+    / adresses.length) * 100
+)
+  
+
   let adressesAffichees = adresses
 
   if (filtreRestant) {
@@ -357,21 +363,56 @@ export default function App() {
 
       <div
   style={{
-    position: 'absolute',
-    zIndex: 1000,
-    top: 110,
-    left: 10,
-    background: 'white',
-    padding: '12px',
-    borderRadius: '12px',
-    boxShadow:
-      '0 4px 15px rgba(0,0,0,0.25)',
-    maxWidth: '220px',
-    fontSize: '12px'
-  }}
+  position: 'absolute',
+  zIndex: 1000,
+  top: 110,
+  left: 10,
+  background: 'rgba(255,255,255,0.75)',
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+  padding: '12px',
+  borderRadius: '16px',
+  border: '1px solid rgba(255,255,255,0.3)',
+  boxShadow:
+    '0 8px 32px rgba(0,0,0,0.15)',
+  maxWidth: '220px',
+  fontSize: '12px'
+}}
+
 >
 
         <h3>Calendriers Aubiet</h3>
+
+        <div
+  style={{
+    width: '70px',
+    height: '70px',
+    borderRadius: '50%',
+    background: `conic-gradient(
+      #4CAF50 ${pourcentage}%,
+      #e0e0e0 0
+    )`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '0 auto 10px auto'
+  }}
+>
+  <div
+    style={{
+      width: '50px',
+      height: '50px',
+      background: 'white',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontWeight: 'bold'
+    }}
+  >
+    {pourcentage}%
+  </div>
+</div>
 
         <div>
           👤 {distributeur}
@@ -490,14 +531,34 @@ export default function App() {
 />
 
     <Circle
-      center={positionGPS}
-      radius={12}
-      pathOptions={{
-        color: '#0066ff',
-        fillColor: '#0066ff',
-        fillOpacity: 0.2
-      }}
-    />
+  center={positionGPS}
+  radius={20}
+  pathOptions={{
+    color: '#0066ff',
+    fillColor: '#0066ff',
+    fillOpacity: 0.08
+  }}
+/>
+
+<Circle
+  center={positionGPS}
+  radius={40}
+  pathOptions={{
+    color: '#0066ff',
+    fillColor: '#0066ff',
+    fillOpacity: 0.05
+  }}
+/>
+
+<Circle
+  center={positionGPS}
+  radius={60}
+  pathOptions={{
+    color: '#0066ff',
+    fillColor: '#0066ff',
+    fillOpacity: 0.03
+  }}
+/>
 
   </>
 
@@ -536,7 +597,8 @@ pathOptions={
         color: '#FFD700',
         fillColor: '#FFD700',
         fillOpacity: 1,
-        weight: 3
+        weight: 3,
+        dashArray: '1'
       }
     : {
         color: getColor(adresse.statut)
@@ -547,6 +609,22 @@ pathOptions={
     <Popup>
 
               <h3>{adresse.adresse}</h3>
+
+              {String(adresse.commentaire || '')
+  .trim()
+  .toLowerCase() === 'sponsor' && (
+
+  <p
+    style={{
+      color: '#FFD700',
+      fontWeight: 'bold',
+      fontSize: '18px'
+    }}
+  >
+    ⭐ Sponsor du club
+  </p>
+
+)}
 
               <p>
                 Statut :
