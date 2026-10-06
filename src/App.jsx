@@ -604,36 +604,31 @@ export default function App() {
         <RecentrerCarte position={positionGPS} />
 
         {positionGPS && (
-          <>
-            <Circle
-              center={positionGPS}
-              radius={4}
-              pathOptions={{
-                color: '#0066ff',
-                fillColor: '#0066ff',
-                fillOpacity: 1
-              }}
-            />
-            <Circle
-              center={positionGPS}
-              radius={20}
-              pathOptions={{
-                color: '#0066ff',
-                fillColor: '#0066ff',
-                fillOpacity: 0.08
-              }}
-            />
-            <Circle
-              center={positionGPS}
-              radius={40}
-              pathOptions={{
-                color: '#0066ff',
-                fillColor: '#0066ff',
-                fillOpacity: 0.05
-              }}
-            />
-          </>
-        )}
+  <>
+    <CircleMarker
+      center={positionGPS}
+      radius={5}
+      pathOptions={{
+        color: '#ffffff',
+        weight: 2,
+        fillColor: '#0066ff',
+        fillOpacity: 1
+      }}
+    />
+
+    <CircleMarker
+      center={positionGPS}
+      radius={12}
+      pathOptions={{
+        className: 'gps-halo',
+        color: '#0066ff',
+        weight: 2,
+        fillColor: '#0066ff',
+        fillOpacity: 0.15
+      }}
+    />
+  </>
+)}
 
         {limiteCommune && (
           <GeoJSON
